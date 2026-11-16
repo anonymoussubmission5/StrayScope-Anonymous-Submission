@@ -1,39 +1,321 @@
 {
  "demos": [
   {
-   "id": "phys-parking",
-   "task": "det",
-   "title": "Parking lot, real green laser",
-   "chip": "Parking lot",
-   "chipTag": "real laser",
-   "model": "Faster R-CNN",
-   "source": "physical",
-   "sourceLabel": "real laser through the camera",
-   "band": "three moving bands",
-   "desc": "A modulated green laser shines into the webcam while it films the parking-lot video. Each band hides a row of parked cars from the detector; on the corrected video it finds them again.",
-   "video": "assets/video/demos/phys-parking.mp4",
-   "poster": "assets/img/demos/phys-parking.jpg",
-   "series": "assets/data/series/phys-parking.json",
+   "id": "face-1",
+   "task": "facerec",
+   "title": "Face recognition, six people",
+   "chip": "Six faces",
+   "chipTag": "recognition",
+   "model": "YuNet + SFace",
+   "source": "simulated",
+   "sourceLabel": "recorded laser pattern overlaid",
+   "band": "green horizontal bands",
+   "onset": 12,
+   "desc": "Six people in a grid of interview recordings, with the recognizer's identity gallery enrolled from attack-free footage. Under the green band, about half of the faces are either not detected or not recognized; on the corrected video, every enrolled face is recognized with its identity.",
+   "video": "assets/video/demos/face-1.mp4",
+   "poster": "assets/img/demos/face-1.jpg",
+   "series": "assets/data/series/face-1.json",
    "downloads": {
-    "Side by side": "assets/video/demos/phys-parking.mp4",
-    "Clean": "assets/dl/phys-parking-clean.mp4",
-    "Attacked": "assets/dl/phys-parking-attacked.mp4",
-    "Corrected": "assets/dl/phys-parking-corrected.mp4"
+    "Side by side": "assets/video/demos/face-1.mp4",
+    "Clean": "assets/dl/face-1-clean.mp4",
+    "Attacked": "assets/dl/face-1-attacked.mp4",
+    "Corrected": "assets/dl/face-1-corrected.mp4"
    },
-   "meanAtt": 0.657,
-   "meanCor": 0.959
+   "meanAtt": 0.524,
+   "meanCor": 0.995
+  },
+  {
+   "id": "det-porch",
+   "task": "det",
+   "title": "Doorbell camera, package delivery",
+   "chip": "Doorbell porch",
+   "chipTag": "detection",
+   "model": "Faster R-CNN",
+   "source": "simulated",
+   "sourceLabel": "recorded laser pattern overlaid at moderate intensity",
+   "band": "blue vertical bands",
+   "desc": "A doorbell camera records a courier walking from the porch back to the delivery truck. Under moderate blue bands, Faster R-CNN misses objects in the affected regions, labels the recreational vehicle as a bus and reports spurious objects; on the corrected video, its output closely matches the clean-video output.",
+   "video": "assets/video/demos/det-porch.mp4",
+   "poster": "assets/img/demos/det-porch.jpg",
+   "series": "assets/data/series/det-porch.json",
+   "downloads": {
+    "Side by side": "assets/video/demos/det-porch.mp4",
+    "Clean": "assets/dl/det-porch-clean.mp4",
+    "Attacked": "assets/dl/det-porch-attacked.mp4",
+    "Corrected": "assets/dl/det-porch-corrected.mp4"
+   },
+   "meanAtt": 0.553,
+   "meanCor": 0.919
+  },
+  {
+   "id": "det-street",
+   "task": "det",
+   "title": "Street camera",
+   "chip": "Street",
+   "chipTag": "detection",
+   "model": "Faster R-CNN",
+   "source": "simulated",
+   "sourceLabel": "recorded laser pattern overlaid at moderate intensity",
+   "band": "green horizontal bands",
+   "onset": 15,
+   "desc": "A street camera with parked and passing vehicles. Under a moderate green band, Faster R-CNN misses many of the parked cars and reports spurious objects; on the corrected video, it detects the vehicles again.",
+   "video": "assets/video/demos/det-street.mp4",
+   "poster": "assets/img/demos/det-street.jpg",
+   "series": "assets/data/series/det-street.json",
+   "downloads": {
+    "Side by side": "assets/video/demos/det-street.mp4",
+    "Clean": "assets/dl/det-street-clean.mp4",
+    "Attacked": "assets/dl/det-street-attacked.mp4",
+    "Corrected": "assets/dl/det-street-corrected.mp4"
+   },
+   "meanAtt": 0.576,
+   "meanCor": 0.97
+  },
+  {
+   "id": "det-visitor",
+   "task": "det",
+   "title": "Front door, visitor",
+   "chip": "Front door",
+   "chipTag": "detection",
+   "model": "Faster R-CNN",
+   "source": "simulated",
+   "sourceLabel": "recorded laser pattern overlaid at moderate intensity",
+   "band": "green horizontal bands",
+   "desc": "A visitor waits at a front door while people pass on the street. The band hides a pedestrian and several parked cars from the detector and changes the label of another car; on the corrected video, they are detected correctly again.",
+   "video": "assets/video/demos/det-visitor.mp4",
+   "poster": "assets/img/demos/det-visitor.jpg",
+   "series": "assets/data/series/det-visitor.json",
+   "downloads": {
+    "Side by side": "assets/video/demos/det-visitor.mp4",
+    "Clean": "assets/dl/det-visitor-clean.mp4",
+    "Attacked": "assets/dl/det-visitor-attacked.mp4",
+    "Corrected": "assets/dl/det-visitor-corrected.mp4"
+   },
+   "meanAtt": 0.778,
+   "meanCor": 0.939
+  },
+  {
+   "id": "det-plaza",
+   "task": "det",
+   "title": "Plaza camera",
+   "chip": "Plaza",
+   "chipTag": "detection",
+   "model": "Faster R-CNN",
+   "source": "simulated",
+   "sourceLabel": "recorded laser pattern overlaid at moderate intensity",
+   "band": "green vertical bands",
+   "desc": "A plaza camera with pedestrians, bicycles and a parked car. Under a moderate vertical band, the detector misses most objects within the band and labels a bicycle as a bench; on the corrected video, the objects are detected again.",
+   "video": "assets/video/demos/det-plaza.mp4",
+   "poster": "assets/img/demos/det-plaza.jpg",
+   "series": "assets/data/series/det-plaza.json",
+   "downloads": {
+    "Side by side": "assets/video/demos/det-plaza.mp4",
+    "Clean": "assets/dl/det-plaza-clean.mp4",
+    "Attacked": "assets/dl/det-plaza-attacked.mp4",
+    "Corrected": "assets/dl/det-plaza-corrected.mp4"
+   },
+   "meanAtt": 0.404,
+   "meanCor": 0.879
+  },
+  {
+   "id": "det-walkway",
+   "task": "det",
+   "title": "Campus walkway",
+   "chip": "Walkway",
+   "chipTag": "detection",
+   "model": "Faster R-CNN",
+   "source": "simulated",
+   "sourceLabel": "recorded laser pattern overlaid at moderate intensity",
+   "band": "green horizontal bands",
+   "desc": "Pedestrians on a campus walkway. Under the band, the detector misses people and objects in the affected regions and changes the class of a planter; after correction, its output closely matches its output on the clean video.",
+   "video": "assets/video/demos/det-walkway.mp4",
+   "poster": "assets/img/demos/det-walkway.jpg",
+   "series": "assets/data/series/det-walkway.json",
+   "downloads": {
+    "Side by side": "assets/video/demos/det-walkway.mp4",
+    "Clean": "assets/dl/det-walkway-clean.mp4",
+    "Attacked": "assets/dl/det-walkway-attacked.mp4",
+    "Corrected": "assets/dl/det-walkway-corrected.mp4"
+   },
+   "meanAtt": 0.518,
+   "meanCor": 0.86
+  },
+  {
+   "id": "det-gas",
+   "task": "det",
+   "title": "Gas station camera",
+   "chip": "Gas station",
+   "chipTag": "detection",
+   "model": "Faster R-CNN",
+   "source": "simulated",
+   "sourceLabel": "recorded laser pattern overlaid at moderate intensity",
+   "band": "blue vertical bands",
+   "desc": "A gas-station camera with vehicles and customers. Under moderate blue bands, the detector misses many of the distant vehicles and reports a spurious object at the pump; after correction, the missed vehicles are detected again.",
+   "video": "assets/video/demos/det-gas.mp4",
+   "poster": "assets/img/demos/det-gas.jpg",
+   "series": "assets/data/series/det-gas.json",
+   "downloads": {
+    "Side by side": "assets/video/demos/det-gas.mp4",
+    "Clean": "assets/dl/det-gas-clean.mp4",
+    "Attacked": "assets/dl/det-gas-attacked.mp4",
+    "Corrected": "assets/dl/det-gas-corrected.mp4"
+   },
+   "meanAtt": 0.564,
+   "meanCor": 0.897
+  },
+  {
+   "id": "seg-1",
+   "task": "seg",
+   "title": "Instance segmentation, doorbell camera",
+   "chip": "Doorbell porch",
+   "chipTag": "segmentation",
+   "model": "Mask R-CNN",
+   "source": "simulated",
+   "sourceLabel": "recorded laser pattern overlaid at moderate intensity",
+   "band": "blue vertical bands",
+   "desc": "Mask R-CNN on the doorbell scene. Under the blue bands, the masks of objects in the affected regions are lost or assigned the wrong class, and spurious masks appear; on the corrected video, the masks match the clean output.",
+   "video": "assets/video/demos/seg-1.mp4",
+   "poster": "assets/img/demos/seg-1.jpg",
+   "series": "assets/data/series/seg-1.json",
+   "downloads": {
+    "Side by side": "assets/video/demos/seg-1.mp4",
+    "Clean": "assets/dl/seg-1-clean.mp4",
+    "Attacked": "assets/dl/seg-1-attacked.mp4",
+    "Corrected": "assets/dl/seg-1-corrected.mp4"
+   },
+   "meanAtt": 0.579,
+   "meanCor": 0.913
+  },
+  {
+   "id": "seg-2",
+   "task": "seg",
+   "title": "Instance segmentation, street camera",
+   "chip": "Street",
+   "chipTag": "segmentation",
+   "model": "Mask R-CNN",
+   "source": "simulated",
+   "sourceLabel": "recorded laser pattern overlaid at moderate intensity",
+   "band": "green horizontal bands",
+   "onset": 15,
+   "desc": "Mask R-CNN on the street camera. The band removes the masks of several parked cars, labels two cars as trucks and adds a spurious mask; on the corrected video, the masks and classes match the clean output.",
+   "video": "assets/video/demos/seg-2.mp4",
+   "poster": "assets/img/demos/seg-2.jpg",
+   "series": "assets/data/series/seg-2.json",
+   "downloads": {
+    "Side by side": "assets/video/demos/seg-2.mp4",
+    "Clean": "assets/dl/seg-2-clean.mp4",
+    "Attacked": "assets/dl/seg-2-attacked.mp4",
+    "Corrected": "assets/dl/seg-2-corrected.mp4"
+   },
+   "meanAtt": 0.575,
+   "meanCor": 0.963
+  },
+  {
+   "id": "pose-1",
+   "task": "pose",
+   "title": "Pose estimation, dancer at the waterfront",
+   "chip": "Waterfront",
+   "chipTag": "pose",
+   "model": "YOLO11n-Pose",
+   "source": "simulated",
+   "sourceLabel": "recorded laser pattern overlaid at moderate intensity",
+   "band": "green horizontal bands",
+   "onset": 15,
+   "desc": "A dancer moves along a waterfront at dusk. Under the green band, the pose model loses the dancer in about half of the frames; on the corrected video, the skeleton matches the clean video throughout.",
+   "video": "assets/video/demos/pose-1.mp4",
+   "poster": "assets/img/demos/pose-1.jpg",
+   "series": "assets/data/series/pose-1.json",
+   "downloads": {
+    "Side by side": "assets/video/demos/pose-1.mp4",
+    "Clean": "assets/dl/pose-1-clean.mp4",
+    "Attacked": "assets/dl/pose-1-attacked.mp4",
+    "Corrected": "assets/dl/pose-1-corrected.mp4"
+   },
+   "meanAtt": 0.443,
+   "meanCor": 1.0
+  },
+  {
+   "id": "pose-2",
+   "task": "pose",
+   "title": "Pose estimation, dancer by a patterned wall",
+   "chip": "Patterned wall",
+   "chipTag": "pose",
+   "model": "YOLO11n-Pose",
+   "source": "simulated",
+   "sourceLabel": "recorded laser pattern overlaid at moderate intensity",
+   "band": "green horizontal bands",
+   "onset": 9,
+   "desc": "A dancer moves in front of a patterned wall. Under the band, the pose model misses the dancer in most frames; after correction, it estimates the pose again in nearly every frame.",
+   "video": "assets/video/demos/pose-2.mp4",
+   "poster": "assets/img/demos/pose-2.jpg",
+   "series": "assets/data/series/pose-2.json",
+   "downloads": {
+    "Side by side": "assets/video/demos/pose-2.mp4",
+    "Clean": "assets/dl/pose-2-clean.mp4",
+    "Attacked": "assets/dl/pose-2-attacked.mp4",
+    "Corrected": "assets/dl/pose-2-corrected.mp4"
+   },
+   "meanAtt": 0.24,
+   "meanCor": 0.865
+  },
+  {
+   "id": "pose-3",
+   "task": "pose",
+   "title": "Pose estimation, dancer outdoors",
+   "chip": "Outdoors",
+   "chipTag": "pose",
+   "model": "YOLO11n-Pose",
+   "source": "simulated",
+   "sourceLabel": "recorded laser pattern overlaid at moderate intensity",
+   "band": "green horizontal bands",
+   "onset": 12,
+   "desc": "A dancer outdoors with arms extended. The band crosses the upper body, and the pose model loses the person in many frames; on the corrected video, the skeleton matches the clean video.",
+   "video": "assets/video/demos/pose-3.mp4",
+   "poster": "assets/img/demos/pose-3.jpg",
+   "series": "assets/data/series/pose-3.json",
+   "downloads": {
+    "Side by side": "assets/video/demos/pose-3.mp4",
+    "Clean": "assets/dl/pose-3-clean.mp4",
+    "Attacked": "assets/dl/pose-3-attacked.mp4",
+    "Corrected": "assets/dl/pose-3-corrected.mp4"
+   },
+   "meanAtt": 0.737,
+   "meanCor": 0.983
+  },
+  {
+   "id": "phys-face",
+   "task": "facerec",
+   "title": "Face recognition, physical green-laser attack",
+   "chip": "Faces",
+   "chipTag": "physical",
+   "model": "YuNet + SFace",
+   "source": "physical",
+   "sourceLabel": "physical laser injection through the camera",
+   "band": "three moving bands",
+   "desc": "A grid of faces recorded through a webcam under a green-laser attack, with the recognizer's identity gallery enrolled from attack-free footage. Faces covered by the bands are missed or not recognized under attack; on the corrected video, each face is recognized with its identity.",
+   "video": "assets/video/demos/phys-face.mp4",
+   "poster": "assets/img/demos/phys-face.jpg",
+   "series": "assets/data/series/phys-face.json",
+   "downloads": {
+    "Side by side": "assets/video/demos/phys-face.mp4",
+    "Clean": "assets/dl/phys-face-clean.mp4",
+    "Attacked": "assets/dl/phys-face-attacked.mp4",
+    "Corrected": "assets/dl/phys-face-corrected.mp4"
+   },
+   "meanAtt": 0.715,
+   "meanCor": 0.987
   },
   {
    "id": "phys-delivery",
    "task": "det",
-   "title": "Package delivery, real blue laser",
+   "title": "Package delivery, physical blue-laser attack",
    "chip": "Package delivery",
-   "chipTag": "real laser",
+   "chipTag": "physical",
    "model": "Faster R-CNN",
    "source": "physical",
-   "sourceLabel": "real laser through the camera",
+   "sourceLabel": "physical laser injection through the camera",
    "band": "three moving bands",
-   "desc": "A delivery truck stops and the driver walks to the house. Under a real blue laser the detector misses the truck, the driver and the cars; after correction it finds them all.",
+   "desc": "A delivery truck stops and the driver walks toward the house. Under the blue-laser attack, the detector misses the truck, the driver and the parked cars; on the corrected video, it detects them again.",
    "video": "assets/video/demos/phys-delivery.mp4",
    "poster": "assets/img/demos/phys-delivery.jpg",
    "series": "assets/data/series/phys-delivery.json",
@@ -49,14 +331,14 @@
   {
    "id": "phys-porch",
    "task": "det",
-   "title": "Doorbell porch, real green laser",
+   "title": "Doorbell porch, physical green-laser attack",
    "chip": "Doorbell porch",
-   "chipTag": "real laser",
+   "chipTag": "physical",
    "model": "Faster R-CNN",
    "source": "physical",
-   "sourceLabel": "real laser through the camera",
+   "sourceLabel": "physical laser injection through the camera",
    "band": "three moving bands",
-   "desc": "A doorbell video replayed under a real green laser. Under attack the detector loses the delivery truck, the RV and the parked cars, and reports a person on the porch chair; on the corrected video its output matches the clean one.",
+   "desc": "A doorbell video recorded under a green-laser attack. Under attack, the detector misses the delivery truck, the recreational vehicle and the parked cars, and reports a spurious person on the porch chair; on the corrected video, its output matches the clean output.",
    "video": "assets/video/demos/phys-porch.mp4",
    "poster": "assets/img/demos/phys-porch.jpg",
    "series": "assets/data/series/phys-porch.json",
@@ -72,14 +354,14 @@
   {
    "id": "phys-street",
    "task": "det",
-   "title": "Street camera, real green laser",
+   "title": "Street camera, physical green-laser attack",
    "chip": "Street camera",
-   "chipTag": "real laser",
+   "chipTag": "physical",
    "model": "Faster R-CNN",
    "source": "physical",
-   "sourceLabel": "real laser through the camera",
+   "sourceLabel": "physical laser injection through the camera",
    "band": "three moving bands",
-   "desc": "Under a real green laser the detector misses most of the parked cars and the van, labels a sign a boat and reports a person in the sky; after correction its output matches the clean one.",
+   "desc": "Under the green-laser attack, the detector misses most of the parked cars and the van, labels a sign as a boat and reports a spurious person in the sky; on the corrected video, its output matches the clean output.",
    "video": "assets/video/demos/phys-street.mp4",
    "poster": "assets/img/demos/phys-street.jpg",
    "series": "assets/data/series/phys-street.json",
@@ -95,14 +377,14 @@
   {
    "id": "phys-parking-blue",
    "task": "det",
-   "title": "Parking lot, real blue laser",
-   "chip": "Parking lot, blue",
-   "chipTag": "real laser",
+   "title": "Parking lot, physical blue-laser attack",
+   "chip": "Parking lot",
+   "chipTag": "physical",
    "model": "Faster R-CNN",
    "source": "physical",
-   "sourceLabel": "real laser through the camera",
+   "sourceLabel": "physical laser injection through the camera",
    "band": "three moving bands",
-   "desc": "The blue-laser recording that the vision-language models describe on the main page, here through Faster R-CNN. The band hides a row of cars; after correction the detector finds them again.",
+   "desc": "The parking-lot recording used in the vision-language example, processed by Faster R-CNN. The band suppresses a row of parked cars; on the corrected video, the detector finds them again.",
    "video": "assets/video/demos/phys-parking-blue.mp4",
    "poster": "assets/img/demos/phys-parking-blue.jpg",
    "series": "assets/data/series/phys-parking-blue.json",
@@ -114,217 +396,6 @@
    },
    "meanAtt": 0.719,
    "meanCor": 0.954
-  },
-  {
-   "id": "phys-face",
-   "task": "facerec",
-   "title": "Face recognition, real green laser",
-   "chip": "Faces",
-   "chipTag": "real laser",
-   "model": "YuNet + SFace",
-   "source": "physical",
-   "sourceLabel": "real laser through the camera",
-   "band": "three moving bands",
-   "desc": "A grid of faces filmed under a real green laser, with identities enrolled from the laser-off recording. Faces under the bands are missed or go unrecognized; on the corrected video each face carries its identity again.",
-   "video": "assets/video/demos/phys-face.mp4",
-   "poster": "assets/img/demos/phys-face.jpg",
-   "series": "assets/data/series/phys-face.json",
-   "downloads": {
-    "Side by side": "assets/video/demos/phys-face.mp4",
-    "Clean": "assets/dl/phys-face-clean.mp4",
-    "Attacked": "assets/dl/phys-face-attacked.mp4",
-    "Corrected": "assets/dl/phys-face-corrected.mp4"
-   },
-   "meanAtt": 0.715,
-   "meanCor": 0.986
-  },
-  {
-   "id": "phys-parking-seg",
-   "task": "seg",
-   "title": "Instance segmentation, real green laser",
-   "chip": "Parking lot",
-   "chipTag": "real laser",
-   "model": "Mask R-CNN",
-   "source": "physical",
-   "sourceLabel": "real laser through the camera",
-   "band": "three moving bands",
-   "desc": "Mask R-CNN on the real-laser parking-lot recording. The band erases the masks of a whole row of cars; after correction they return.",
-   "video": "assets/video/demos/phys-parking-seg.mp4",
-   "poster": "assets/img/demos/phys-parking-seg.jpg",
-   "series": "assets/data/series/phys-parking-seg.json",
-   "downloads": {
-    "Side by side": "assets/video/demos/phys-parking-seg.mp4",
-    "Clean": "assets/dl/phys-parking-seg-clean.mp4",
-    "Attacked": "assets/dl/phys-parking-seg-attacked.mp4",
-    "Corrected": "assets/dl/phys-parking-seg-corrected.mp4"
-   },
-   "meanAtt": 0.656,
-   "meanCor": 0.963
-  },
-  {
-   "id": "houses-h",
-   "task": "det",
-   "title": "Doorbell camera, street of houses",
-   "chip": "Doorbell street",
-   "chipTag": "detection",
-   "model": "Faster R-CNN",
-   "source": "simulated",
-   "sourceLabel": "recorded laser pattern overlaid",
-   "band": "horizontal bands",
-   "onset": 21,
-   "desc": "A band recorded from a doorbell camera is overlaid on a doorbell video from the test set. The clip starts attack-free; under the band the detector loses the passer-by and the parked cars.",
-   "video": "assets/video/demos/houses-h.mp4",
-   "poster": "assets/img/demos/houses-h.jpg",
-   "series": "assets/data/series/houses-h.json",
-   "downloads": {
-    "Side by side": "assets/video/demos/houses-h.mp4",
-    "Clean": "assets/dl/houses-h-clean.mp4",
-    "Attacked": "assets/dl/houses-h-attacked.mp4",
-    "Corrected": "assets/dl/houses-h-corrected.mp4"
-   },
-   "meanAtt": 0.605,
-   "meanCor": 0.891
-  },
-  {
-   "id": "houses-v",
-   "task": "det",
-   "title": "Doorbell camera, vertical bands",
-   "chip": "Vertical bands",
-   "chipTag": "detection",
-   "model": "Faster R-CNN",
-   "source": "simulated",
-   "sourceLabel": "recorded laser pattern overlaid",
-   "band": "vertical bands",
-   "onset": 21,
-   "desc": "The same street with vertical bands from the paper's vertical session. Under attack the detector misses the cars and reports a traffic light that is not there.",
-   "video": "assets/video/demos/houses-v.mp4",
-   "poster": "assets/img/demos/houses-v.jpg",
-   "series": "assets/data/series/houses-v.json",
-   "downloads": {
-    "Side by side": "assets/video/demos/houses-v.mp4",
-    "Clean": "assets/dl/houses-v-clean.mp4",
-    "Attacked": "assets/dl/houses-v-attacked.mp4",
-    "Corrected": "assets/dl/houses-v-corrected.mp4"
-   },
-   "meanAtt": 0.626,
-   "meanCor": 0.914
-  },
-  {
-   "id": "parking",
-   "task": "det",
-   "title": "Parking lot, recorded pattern",
-   "chip": "Parking lot",
-   "chipTag": "detection",
-   "model": "Faster R-CNN",
-   "source": "simulated",
-   "sourceLabel": "recorded laser pattern overlaid",
-   "band": "horizontal bands",
-   "onset": 12,
-   "desc": "The laser pattern comes on half a second in. Dozens of parked cars disappear under the bands; after correction nearly all of them are detected again.",
-   "video": "assets/video/demos/parking.mp4",
-   "poster": "assets/img/demos/parking.jpg",
-   "series": "assets/data/series/parking.json",
-   "downloads": {
-    "Side by side": "assets/video/demos/parking.mp4",
-    "Clean": "assets/dl/parking-clean.mp4",
-    "Attacked": "assets/dl/parking-attacked.mp4",
-    "Corrected": "assets/dl/parking-corrected.mp4"
-   },
-   "meanAtt": 0.541,
-   "meanCor": 0.956
-  },
-  {
-   "id": "houses-seg",
-   "task": "seg",
-   "title": "Instance segmentation, street of houses",
-   "chip": "Doorbell street",
-   "chipTag": "segmentation",
-   "model": "Mask R-CNN",
-   "source": "simulated",
-   "sourceLabel": "recorded laser pattern overlaid",
-   "band": "horizontal bands",
-   "onset": 21,
-   "desc": "Mask R-CNN outlines the parked cars and the passer-by. Under the band their masks disappear; after correction they return.",
-   "video": "assets/video/demos/houses-seg.mp4",
-   "poster": "assets/img/demos/houses-seg.jpg",
-   "series": "assets/data/series/houses-seg.json",
-   "downloads": {
-    "Side by side": "assets/video/demos/houses-seg.mp4",
-    "Clean": "assets/dl/houses-seg-clean.mp4",
-    "Attacked": "assets/dl/houses-seg-attacked.mp4",
-    "Corrected": "assets/dl/houses-seg-corrected.mp4"
-   },
-   "meanAtt": 0.586,
-   "meanCor": 0.854
-  },
-  {
-   "id": "face-sim",
-   "task": "facerec",
-   "title": "Face recognition, six people",
-   "chip": "Six faces",
-   "chipTag": "recognition",
-   "model": "YuNet + SFace",
-   "source": "simulated",
-   "sourceLabel": "recorded laser pattern overlaid",
-   "band": "horizontal bands",
-   "desc": "Identities are enrolled from the clean video. Under the laser band the recognizer finds none of the six people; on the corrected video it names all six correctly.",
-   "video": "assets/video/demos/face-sim.mp4",
-   "poster": "assets/img/demos/face-sim.jpg",
-   "series": "assets/data/series/face-sim.json",
-   "downloads": {
-    "Side by side": "assets/video/demos/face-sim.mp4",
-    "Clean": "assets/dl/face-sim-clean.mp4",
-    "Attacked": "assets/dl/face-sim-attacked.mp4",
-    "Corrected": "assets/dl/face-sim-corrected.mp4"
-   },
-   "meanAtt": 0.422,
-   "meanCor": 0.98
-  },
-  {
-   "id": "pose-sim",
-   "task": "pose",
-   "title": "Pose estimation, dancer",
-   "chip": "Street dancer",
-   "chipTag": "pose",
-   "model": "YOLO11n-Pose",
-   "source": "simulated",
-   "sourceLabel": "recorded laser pattern overlaid",
-   "band": "horizontal bands",
-   "desc": "A dancer moves through the band. Under attack the pose model loses the person or misplaces the joints; on the corrected video the skeleton matches the clean one.",
-   "video": "assets/video/demos/pose-sim.mp4",
-   "poster": "assets/img/demos/pose-sim.jpg",
-   "series": "assets/data/series/pose-sim.json",
-   "downloads": {
-    "Side by side": "assets/video/demos/pose-sim.mp4",
-    "Clean": "assets/dl/pose-sim-clean.mp4",
-    "Attacked": "assets/dl/pose-sim-attacked.mp4",
-    "Corrected": "assets/dl/pose-sim-corrected.mp4"
-   },
-   "meanAtt": 0.632,
-   "meanCor": 0.997
-  },
-  {
-   "id": "pose-sim2",
-   "task": "pose",
-   "title": "Pose estimation, second clip",
-   "chip": "Second dancer",
-   "chipTag": "pose",
-   "model": "YOLO11n-Pose",
-   "source": "simulated",
-   "sourceLabel": "recorded laser pattern overlaid",
-   "band": "horizontal bands",
-   "desc": "Another pose clip from the test set. Under attack the joints drift into the band; on the corrected video the skeleton matches the clean one.",
-   "video": "assets/video/demos/pose-sim2.mp4",
-   "poster": "assets/img/demos/pose-sim2.jpg",
-   "series": "assets/data/series/pose-sim2.json",
-   "downloads": {
-    "Side by side": "assets/video/demos/pose-sim2.mp4",
-    "Clean": "assets/dl/pose-sim2-clean.mp4",
-    "Attacked": "assets/dl/pose-sim2-attacked.mp4",
-    "Corrected": "assets/dl/pose-sim2-corrected.mp4"
-   },
-   "meanAtt": 0.532,
-   "meanCor": 0.95
   }
  ],
  "charts": {
@@ -361,7 +432,7 @@
      "note": "34 of 36"
     },
     {
-     "label": "Mean of five",
+     "label": "Mean of five detectors",
      "a": 38.2,
      "c": 56.46,
      "note": "172 of 180"
@@ -387,7 +458,7 @@
      "note": "11 of 12"
     },
     {
-     "label": "Changing sweep",
+     "label": "Changing direction and speed",
      "a": 39.2,
      "c": 51.98,
      "note": "11 of 12"
@@ -444,12 +515,6 @@
      "a": 36.63,
      "c": 72.32,
      "note": "15 of 15 clips"
-    },
-    {
-     "label": "Strict pose score",
-     "a": 15.13,
-     "c": 36.08,
-     "note": "OKS 0.75"
     },
     {
      "label": "Correct keypoints",
@@ -545,12 +610,6 @@
      "a": 74.97,
      "c": 93.0,
      "note": "15 of 15"
-    },
-    {
-     "label": "Pose estimation",
-     "a": 71.21,
-     "c": 76.53,
-     "note": "31 of 45"
     }
    ],
    "opt": {
@@ -736,7 +795,7 @@
   {
    "src": "assets/img/fig/fig1-localization.webp",
    "title": "Regional spectral-spatial localization",
-   "caption": "A frame of the attack-free window, an attacked frame with several narrow bands, and the rise of each region's three color levels above its baseline. A region is affected when its strongest channel rises above the threshold."
+   "caption": "A frame of the attack-free window, an attacked frame with several narrow bands, and the rise of each region's color channels above its baseline. A region is affected when its dominant channel rises above the threshold."
   },
   {
    "src": "assets/img/fig/fig2-pixel-contour.webp",
@@ -746,7 +805,7 @@
   {
    "src": "assets/img/fig/fig3-stray-trail.webp",
    "title": "Stray-trail analysis",
-   "caption": "Tracked points between two consecutive frames, with points displaced or lost by the injection marked, and the share of disrupted points in each region."
+   "caption": "Feature points tracked between two consecutive frames, with points displaced or lost by the injection marked, and the fraction of disrupted points in each region."
   },
   {
    "src": "assets/img/fig/fig4-detection.webp",
@@ -781,7 +840,7 @@
  ],
  "vlm": {
   "model": "Qwen3-VL-30B-A3B",
-  "recording": "real blue laser, parking-lot scene",
+  "recording": "physical blue-laser recording of a parking lot",
   "clean": "As the video progresses, a person can be seen walking across the parking lot from the right side of the frame towards the left.",
   "attacked": "The vehicles remain stationary, and there are no visible people walking or interacting with the cars. [...] The video is framed with a blue border, which adds a visual element to the footage.",
   "corrected": "As the video progresses, a person can be seen walking in the lower right corner of the frame, moving from right to left.",
@@ -828,11 +887,11 @@
    "group": "Low visibility"
   },
   {
-   "label": "Band jumping between two places",
+   "label": "Band jumping between two positions",
    "group": "Changing motion"
   },
   {
-   "label": "Fast moves between two places",
+   "label": "Fast movement between two positions",
    "group": "Changing motion"
   },
   {

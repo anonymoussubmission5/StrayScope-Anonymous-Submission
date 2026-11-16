@@ -457,3 +457,14 @@ details > div { padding-top: 0.75rem; max-width: var(--col); }
 .loop-video { width: 100%; border-radius: var(--radius-s); background: #000; }
 .media-label { font-family: var(--sans); font-size: var(--t-xs); color: var(--ink-3); margin-top: 0.4rem; }
 @media print { .site-head, .stage, video, .chips { display: none !important; } body { background: #fff; } }
+
+/* hero author line, overview principles, artifacts placeholder (16 Nov revision) */
+.hero .authors { font-family: var(--sans); font-size: var(--t-s); color: var(--ink-3); margin: 0 0 1rem; }
+.principles { display: grid; grid-template-columns: repeat(auto-fit, minmax(15rem, 1fr)); gap: 1.25rem 2rem; margin: 2rem 0 0; font-family: var(--sans); }
+.principles div { border-left: 3px solid var(--c, var(--ink)); padding: 0.1rem 0 0.1rem 0.95rem; }
+.principles b { display: block; font-family: var(--serif); font-size: var(--t-l); font-weight: 600; color: var(--ink); line-height: 1.25; }
+.principles span { display: block; font-size: var(--t-s); color: var(--ink-2); line-height: 1.5; margin-top: 0.35rem; }
+.soon { font-family: var(--serif); font-size: var(--t-l); color: var(--ink); margin-top: 0.5rem; }
+.soon span { color: var(--ink-3); }
+table.data.wrap td, table.data.wrap th { white-space: normal; vertical-align: top; }
+table.data.wrap td:last-child, table.data.wrap th:last-child { text-align: left; }

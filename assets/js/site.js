@@ -203,7 +203,7 @@ function deviceMatrix(host, data) {
       for (const k of ["s", "r"]) {
         const v = d[f.toLowerCase()][k];
         const cls = v === null ? "na" : v ? "ok" : "fail";
-        const text = v === null ? "No feature" : v ? "Detected" : "Failed";
+        const text = v === null ? "Feature not available" : v ? "Detected" : "Failed";
         const td = el("td", { class: cls, title: `${d.device}, ${f}, ${k === "s" ? "static" : "rolling-shutter"} injection: ${text}` });
         td.innerHTML = v === null ? "–" : v ? ICON.ok : ICON.fail;
         td.append(el("span", { class: "sr-only" }, text));
@@ -377,9 +377,9 @@ class Player {
       this.dl.append("Download");
       for (const [k, v] of Object.entries(d.downloads)) this.dl.append(el("a", { href: v, download: "" }, k));
     }
-    const kinds = d.task === "pose" ? [["found", "pose matches clean"], ["missed", "missed person"], ["ghost", "extra person"]]
-      : d.task === "facerec" ? [["found", "same identity as clean"], ["missed", "missed face"], ["wrong", "other identity"], ["ghost", "face not in clean"]]
-      : [["found", "matches clean"], ["missed", "missed"], ["ghost", "not in clean (ghost)"], ["wrong", "wrong label"]];
+    const kinds = d.task === "pose" ? [["found", "pose matches clean output"], ["missed", "missed person"], ["ghost", "spurious person"]]
+      : d.task === "facerec" ? [["found", "same identity as clean output"], ["missed", "missed face"], ["wrong", "misidentified"], ["ghost", "spurious face"]]
+      : [["found", "matches clean output"], ["missed", "missed"], ["ghost", "spurious (ghost)"], ["wrong", "incorrect label"]];
     this.legend.innerHTML = "";
     for (const [k, t] of kinds) this.legend.append(el("span", { class: "lb-" + k }, el("i"), t));
     this.tlLabel.innerHTML = "";
@@ -455,10 +455,10 @@ class Player {
     const noun = t === "pose" ? "people" : t === "facerec" ? "known faces" : "objects";
     this.heads.clean.innerHTML = `<i>${c[0]}</i> ${noun}`;
     const fmt = (f, m, g, w) => t === "pose"
-      ? `<i>${f}</i> matched, <i>${m}</i> missed, <i>${g}</i> extra`
+      ? `<i>${f}</i> matched, <i>${m}</i> missed, <i>${g}</i> spurious`
       : t === "facerec"
-        ? `<i>${f}</i> correct, <i>${m}</i> missed, <i>${w}</i> wrong`
-        : `<i>${f}</i> found, <i>${m}</i> missed, <i>${g}</i> ghost, <i>${w}</i> wrong`;
+        ? `<i>${f}</i> correct, <i>${m}</i> missed, <i>${w}</i> misidentified`
+        : `<i>${f}</i> found, <i>${m}</i> missed, <i>${g}</i> spurious, <i>${w}</i> mislabeled`;
     this.heads.attacked.innerHTML = fmt(c[1], c[2], c[3], c[4]);
     this.heads.corrected.innerHTML = fmt(c[5], c[6], c[7], c[8]);
   }
@@ -573,12 +573,12 @@ async function boot() {
   const vx = $("#vlm-example");
   if (vx && data.vlm) {
     const v = data.vlm;
-    vx.append(el("h3", { style: "margin-top:2rem" }, `What ${v.model} says about one ${v.recording}`),
+    vx.append(el("h3", { style: "margin-top:2rem" }, `${v.model} descriptions of a ${v.recording}`),
       el("div", { class: "vlm" },
         el("div", { style: "--c:var(--clean)" }, el("b", {}, "Clean video"), el("p", {}, `“${v.clean}”`)),
         el("div", { style: "--c:var(--attacked)" }, el("b", {}, `Attacked (judge score ${v.scores[0]})`), el("p", {}, `“${v.attacked}”`)),
         el("div", { style: "--c:var(--corrected)" }, el("b", {}, `Corrected (judge score ${v.scores[1]})`), el("p", {}, `“${v.corrected}”`))),
-      el("p", { class: "small muted", style: "margin-top:0.9rem" }, "Excerpts from the model's full descriptions of the same recording. Under the laser it misses the person crossing the lot and describes the injected light as a decorative border; on the corrected video it reports the person again."));
+      el("p", { class: "small muted", style: "margin-top:0.9rem" }, "Excerpts from the model's descriptions of the same recording. Under attack, the model omits the person crossing the parking lot and describes the injected light as a decorative border; on the corrected video, it again reports the person."));
   }
 }
 
@@ -616,8 +616,8 @@ function gallery(host, demos) {
     return fs;
   };
   host.append(el("div", { class: "filters" },
-    mk("task", [["all", "All"], ["det", "Object detection"], ["seg", "Instance segmentation"], ["facerec", "Face recognition"], ["pose", "Pose estimation"]]),
-    mk("source", [["all", "All"], ["physical", "Real laser"], ["simulated", "Recorded pattern overlay"]])), grid);
+    mk("task", [["all", "All tasks"], ["facerec", "Face recognition"], ["det", "Object detection"], ["seg", "Instance segmentation"], ["pose", "Pose estimation"]]),
+    mk("source", [["all", "All attacks"], ["simulated", "Simulated injection"], ["physical", "Physical injection"]])), grid);
   render();
 }
 
