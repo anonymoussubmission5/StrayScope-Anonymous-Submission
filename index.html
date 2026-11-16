@@ -194,8 +194,8 @@
         <p class="small muted">Figures from the paper: <a href="#" data-fig="fig1-localization">regional localization</a>, <a href="#" data-fig="fig2-pixel-contour">pixel-level contour</a>.</p>
       </div>
       <div class="media">
-        <video class="loop-video" data-src="assets/video/mech-spectral.mp4" poster="assets/img/mech-spectral.jpg" muted loop playsinline preload="none" data-autoplay aria-label="Attacked video with the affected regions lighting up as the band moves, and the band's pixel-level outline."></video>
-        <p class="media-label">Physical laser injection recorded through the camera. Top: the attacked frame and the pixel-level contour of the injected light. Bottom: the increase of each region above its baseline; outlined regions exceed the threshold.</p>
+        <video class="loop-video" data-src="assets/video/mech-spectral.mp4" poster="assets/img/mech-spectral.jpg" muted loop playsinline preload="none" data-autoplay aria-label="A campus road with a passing car and pedestrians under a moving green band; the affected regions and the band's pixel-level contour follow the band."></video>
+        <p class="media-label">A laser pattern recorded through a camera, overlaid on a campus road scene. Top: the attacked frame and the pixel-level contour of the injected light. Bottom: the spectral score of each region; outlined regions exceed the threshold.</p>
       </div>
     </div>
 
@@ -208,8 +208,8 @@
         <p class="small muted">Figures from the paper: <a href="#" data-fig="fig3-stray-trail">stray trails</a>, <a href="#" data-fig="fig5-sweep">sweep direction</a>.</p>
       </div>
       <div class="media">
-        <video class="loop-video" data-src="assets/video/mech-trails.mp4" poster="assets/img/mech-trails.jpg" muted loop playsinline preload="none" data-autoplay aria-label="Tracked points between frames; points displaced by the band leave trails, lost points are crossed, and disrupted regions are shaded."></video>
-        <p class="media-label">Top: corner features tracked between consecutive frames; trails indicate features displaced by the band, and crosses indicate features that were lost. Bottom: the fraction of disrupted features in each region, outlined above the threshold, and the estimated sweep direction.</p>
+        <video class="loop-video" data-src="assets/video/mech-trails.mp4" poster="assets/img/mech-trails.jpg" muted loop playsinline preload="none" data-autoplay aria-label="A campus walkway with pedestrians under moving red bands; feature points displaced by the bands leave trails, lost points are crossed, and disrupted regions are outlined."></video>
+        <p class="media-label">A laser pattern recorded through a camera, overlaid on a campus walkway scene. Top: corner features tracked between consecutive frames; trails indicate features displaced by the band, and crosses indicate features that were lost. Bottom: the fraction of disrupted features in each region, outlined above the threshold, and the estimated sweep direction.</p>
       </div>
     </div>
 
@@ -221,8 +221,8 @@
         <p>The reconstruction requires no future frames, and every input frame produces a corrected output frame, so the corrected video retains the original frame rate. It is passed to the perception models in place of the camera output.</p>
       </div>
       <div class="media">
-        <video class="loop-video" data-src="assets/video/mech-trace.mp4" poster="assets/img/mech-trace.jpg" muted loop playsinline preload="none" data-autoplay aria-label="Space-time trace of one image column over time, before and after correction, next to the attacked and corrected frames."></video>
-        <p class="media-label">A single image column followed over time (space-time trace). Under attack, the moving bands appear as diagonal streaks; after correction, the trace shows the scene content.</p>
+        <video class="loop-video" data-src="assets/video/mech-trace.mp4" poster="assets/img/mech-trace.jpg" muted loop playsinline preload="none" data-autoplay aria-label="Attacked and corrected frames of the campus road scene beside the space-time trace of one image column, with a cursor marking the current frame."></video>
+        <p class="media-label">A single image column (white line) followed over time, with the cursor marking the current frame. Under attack, the moving bands appear as streaks across the trace; after correction, the trace contains only the scene, including the path of the passing car.</p>
       </div>
     </div>
 
