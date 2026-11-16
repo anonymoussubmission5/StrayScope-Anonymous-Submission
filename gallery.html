@@ -1,0 +1,52 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>StrayScope demo videos</title>
+<meta name="description" content="Every StrayScope demo: clean, attacked and corrected video with perception model outputs, plus each stream on its own for download.">
+<meta name="robots" content="noindex, nofollow">
+<meta name="referrer" content="no-referrer">
+<meta name="color-scheme" content="light dark">
+<link rel="icon" href="assets/img/icon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="assets/css/site.css">
+<script type="module" src="assets/js/site.js"></script>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="site-head">
+  <div class="bar">
+    <a class="brand" href="index.html">StrayScope</a>
+    <nav class="site-nav" aria-label="Pages">
+      <a href="index.html#demos">Overview</a>
+      <a href="index.html#method">Method</a>
+      <a href="index.html#results">Perception</a>
+      <a href="index.html#physical">Real laser</a>
+      <a href="index.html#artifacts">Artifacts</a>
+      <a href="gallery.html" aria-current="true">All videos</a>
+    </nav>
+    <button class="theme-toggle" type="button" aria-label="Use dark theme"><svg viewBox="0 0 16 16" width="14" height="14" aria-hidden="true"><path d="M8 1.5a6.5 6.5 0 1 0 0 13 6.5 6.5 0 0 0 0-13zm0 1.5v10a5 5 0 0 1 0-10z" fill="currentColor"/></svg></button>
+  </div>
+</header>
+<main id="main">
+  <section class="hero" style="padding-bottom:0">
+    <div class="wrap"><div class="prose">
+      <h1 style="font-size:var(--t-2xl)">Demo videos</h1>
+      <p class="lede" style="font-size:var(--t-body);max-width:60ch">Every demo shows the same moment three times: the clean video, the attacked video, and the attacked video after correction, each with a perception model's output. White boxes match the model's output on the clean video; dashed boxes are objects it missed, purple boxes are things that are not there, and amber boxes carry the wrong label. Each demo can be downloaded as the side-by-side video and as the three plain streams.</p>
+    </div></div>
+  </section>
+  <section class="stage" aria-label="Selected demo">
+    <div class="wrap"><div data-gallery-player></div></div>
+  </section>
+  <section class="block" style="padding-top:2.5rem">
+    <div class="wrap" data-gallery></div>
+  </section>
+</main>
+<footer class="site-foot">
+  <div class="wrap">
+    <p>StrayScope. Anonymous submission, under review. Scene videos come from the paper's test sets.</p>
+    <p>This page loads no third-party scripts, fonts or trackers.</p>
+  </div>
+</footer>
+</body>
+</html>

@@ -1,0 +1,568 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>StrayScope</title>
+<meta name="description" content="StrayScope traces laser light injected into a camera from the camera's own video, detects the attack, and corrects the affected regions so object detectors, segmentation, face recognition, pose estimation and vision-language models work again.">
+<meta name="robots" content="noindex, nofollow">
+<meta name="referrer" content="no-referrer">
+<meta property="og:title" content="StrayScope">
+<meta property="og:description" content="Harnessing adversarial optics to mitigate optical injection threats and harden visual perception systems.">
+<meta property="og:image" content="assets/img/og.jpg">
+<meta name="color-scheme" content="light dark">
+<link rel="icon" href="assets/img/icon.svg" type="image/svg+xml">
+<link rel="preload" href="assets/fonts/spectral-latin-400-normal.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="assets/fonts/libre-franklin-latin-400-normal.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="assets/css/site.css">
+<script type="module" src="assets/js/site.js"></script>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+
+<header class="site-head">
+  <div class="bar">
+    <a class="brand" href="#top">StrayScope</a>
+    <nav class="site-nav" aria-label="Sections">
+      <a href="#demos">Demos</a>
+      <a href="#threat">Threat</a>
+      <a href="#method">Method</a>
+      <a href="#detection">Detection</a>
+      <a href="#results">Perception</a>
+      <a href="#physical">Real laser</a>
+      <a href="#stress">Stress tests</a>
+      <a href="#artifacts">Artifacts</a>
+      <a href="#faq">Questions</a>
+      <a href="gallery.html">All videos</a>
+    </nav>
+    <button class="theme-toggle" type="button" aria-label="Use dark theme"><svg viewBox="0 0 16 16" width="14" height="14" aria-hidden="true"><path d="M8 1.5a6.5 6.5 0 1 0 0 13 6.5 6.5 0 0 0 0-13zm0 1.5v10a5 5 0 0 1 0-10z" fill="currentColor"/></svg></button>
+  </div>
+</header>
+
+<main id="main">
+
+<!-- ============================================================ hero -->
+<section class="hero" id="top">
+  <div class="wrap">
+    <div class="hero-grid">
+      <div>
+        <h1>StrayScope</h1>
+        <p class="title-long">Harnessing Adversarial Optics to Mitigate Optical Injection Threats and Harden Visual Perception Systems</p>
+        <p class="lede">A laser aimed at a camera's lens can make a smart camera miss the person, package or face in front of it while the camera stays online. StrayScope finds the injected light's traces in the camera's own video, detects the attack, and corrects the affected regions before any perception model sees the frame.</p>
+        <ul class="props">
+          <li><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M3 8.5l3.2 3L13 4.5" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>No training data</li>
+          <li><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M3 8.5l3.2 3L13 4.5" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>One camera, no extra sensors</li>
+          <li><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M3 8.5l3.2 3L13 4.5" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>No clean reference video</li>
+          <li><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M3 8.5l3.2 3L13 4.5" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>Independent of the perception model</li>
+          <li><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M3 8.5l3.2 3L13 4.5" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>Original frame rate kept</li>
+        </ul>
+      </div>
+      <div class="hero-actions">
+        <a class="btn primary" href="#demos">Watch the demos</a>
+        <a class="btn" href="#method">How it works</a>
+        <a class="btn" href="#artifacts">Code and data</a>
+      </div>
+    </div>
+    <div class="meta"><p>Anonymous submission, paper under review.</p></div>
+  </div>
+</section>
+
+<section class="stage" id="demos" aria-label="Demo videos">
+  <div class="wrap">
+    <div data-player="phys-parking,phys-delivery,face-sim,pose-sim,houses-h,phys-porch,phys-face"></div>
+    <p class="small" style="color:var(--stage-ink-2);margin:1rem 0 0;max-width:72ch">Each demo plays the same moment three times: the clean video, the attacked video, and the attacked video after StrayScope's correction, each with the perception model's output. Errors are judged against the model's own output on the clean video. All corrections on this page use only the current and earlier frames. <a href="gallery.html">Browse all demo videos</a>.</p>
+  </div>
+</section>
+
+<!-- ============================================================ threat -->
+<section class="block" id="threat">
+  <div class="wrap">
+    <header class="prose">
+      <p class="kicker" style="color:var(--mod-inj)"><span class="dot"></span>The threat</p>
+      <h2>A 5 mW laser makes smart cameras miss what is in front of them</h2>
+      <p>Smart cameras and video doorbells run object detectors on their video to decide when to record and notify. We tested nine devices from six manufacturers. A laser held on the lens (static injection) stopped every device from reporting people, faces, packages and motion in every feature we tested, and none of them reported anything unusual. A laser switched on and off fast enough to paint colored bands across a rolling-shutter sensor (rolling-shutter injection) defeated most features as well.</p>
+    </header>
+
+    <div class="figures-row">
+      <div style="--c:var(--attacked)"><b>9 of 9</b><span>devices missed motion under static injection, also with high-sensitivity settings</span></div>
+      <div style="--c:var(--attacked)"><b>65&deg;</b><span>beyond the advertised field of view, the laser still suppressed detection</span></div>
+      <div style="--c:var(--attacked)"><b>120 m</b><span>the full length of our test corridor, reached with a 5 mW laser on three devices</span></div>
+      <div style="--c:var(--ink-3)"><b>Online</b><span>throughout: no alert, no recording, no event in the app</span></div>
+    </div>
+
+    <div class="threat-grid">
+      <div class="matrix">
+        <h3>Which detection features failed</h3>
+        <div class="table-wrap" data-matrix></div>
+        <div class="matrix-key"><span><i style="background:color-mix(in srgb,var(--attacked) 16%,var(--surface))"></i>Failed: no notification, no event logged</span><span><i style="background:color-mix(in srgb,var(--corrected) 14%,var(--surface))"></i>Still detected</span><span><i style="background:var(--rule-2)"></i>Feature not offered</span></div>
+      </div>
+      <figure class="fig" style="margin-top:0">
+        <img class="zoomable" src="assets/img/photos/attack-setup.webp" alt="A battery-powered laser module with a microcontroller on a tripod next to a phone mounted on a spotting scope, aimed at a row of video doorbells." loading="lazy" width="1500" height="1008">
+        <figcaption><b>The attack device.</b> A battery-powered laser diode with a microcontroller, aimed through a phone mounted on a spotting scope. We used 5 mW lasers at 450, 532 and 650 nm.</figcaption>
+      </figure>
+    </div>
+
+    <div class="tabs evidence">
+      <h3>What the devices' own apps report</h3>
+      <div class="tablist" role="tablist" aria-label="Device evidence">
+        <button role="tab" type="button" aria-selected="true" aria-controls="ev-nest" id="tev-nest">Google Nest, static laser</button>
+        <button role="tab" type="button" aria-selected="false" aria-controls="ev-ring" id="tev-ring" tabindex="-1">Ring, static laser</button>
+        <button role="tab" type="button" aria-selected="false" aria-controls="ev-roll" id="tev-roll" tabindex="-1">Rolling-shutter laser</button>
+        <button role="tab" type="button" aria-selected="false" aria-controls="ev-oov" id="tev-oov" tabindex="-1">Out of view</button>
+        <button role="tab" type="button" aria-selected="false" aria-controls="ev-range" id="tev-range" tabindex="-1">120 m range</button>
+      </div>
+      <figure class="tabpanel" role="tabpanel" id="ev-nest" aria-labelledby="tev-nest">
+        <img class="zoomable" src="assets/img/photos/nest-static-attack.webp" alt="Google Nest app: without attack it logs a person with a package and a recognized face; under a blue laser it logs no events." loading="lazy" width="1500" height="573">
+        <figcaption><b>Google Nest, static injection.</b> Without the laser the doorbell recognizes the person, the package and the face and logs the event (left). Under a blue laser the same scene produces no event at all (right).</figcaption>
+      </figure>
+      <figure class="tabpanel" role="tabpanel" id="ev-ring" aria-labelledby="tev-ring" hidden>
+        <img class="zoomable" src="assets/img/photos/ring-static-attack.webp" alt="Ring app: package and person notifications without attack; under laser injection the event history shows no events." loading="lazy" width="1500" height="802">
+        <figcaption><b>Ring doorbell, static injection.</b> Without the laser the app sends a package alert and a person alert (left). Under the laser the event history reads "No Events Found" (right).</figcaption>
+      </figure>
+      <figure class="tabpanel" role="tabpanel" id="ev-roll" aria-labelledby="tev-roll" hidden>
+        <img class="zoomable" src="assets/img/photos/nest-ring-rolling-attack.webp" alt="Rolling-shutter attack: Nest logs no events; Ring detects the person but not the package." loading="lazy" width="1500" height="581">
+        <figcaption><b>Rolling-shutter injection.</b> Google Nest logs nothing (left). Ring still reports the person but misses the package the person is carrying (right): a model can fail for one class and keep working for another.</figcaption>
+      </figure>
+      <figure class="tabpanel" role="tabpanel" id="ev-oov" aria-labelledby="tev-oov" hidden>
+        <img class="zoomable" src="assets/img/photos/out-of-view.webp" alt="Four night photos: a package on a porch, a laser aimed at the doorbell from outside its view, a blue-flooded camera image, and the porch without the package." loading="lazy" width="1500" height="545">
+        <figcaption><b>Out-of-view attack.</b> The laser sits outside the doorbell's field of view and hits the side of its wide-angle lens. The package is taken and the doorbell records nothing.</figcaption>
+      </figure>
+      <figure class="tabpanel" role="tabpanel" id="ev-range" aria-labelledby="tev-range" hidden>
+        <img class="zoomable" src="assets/img/photos/distance-corridor.webp" alt="A long corridor with a doorbell on a tripod at the far end and the laser and viewing scope in the foreground." loading="lazy" width="1500" height="1035" style="max-height:62vh">
+        <figcaption><b>Range.</b> The corridor used for the distance tests. With 5 mW lasers, three of five doorbells still failed at the far end, 120 m away; that is a lower bound set by the corridor's length. With 50 mW, all five failed at 120 m.</figcaption>
+      </figure>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================ what the camera records -->
+<section class="block" id="patterns">
+  <div class="wrap">
+    <header class="prose">
+      <p class="kicker" style="color:var(--mod-inj)"><span class="dot"></span>Optical injection</p>
+      <h2>What the injected light looks like to the sensor</h2>
+      <p>Most consumer image sensors read their rows one after another. A laser that blinks during the readout lights some rows and not others, so it appears as colored bands that move as the timing drifts. Light that scatters and reflects inside the lens adds glare and fine streaks that do not belong to the scene.</p>
+      <p>These clips are real recordings of our laser rig shining into a camera that faces a black screen. An attacker controls the number of bands, their width and brightness, and how they move.</p>
+    </header>
+    <figure class="atlas" data-atlas style="margin-top:1.5rem">
+      <video class="loop-video" data-src="assets/video/pattern-atlas.mp4" poster="assets/img/pattern-atlas-poster.jpg" muted loop playsinline preload="none" data-autoplay aria-label="Twelve recorded laser patterns: moving bands, multiple thin bands, dim and narrow bands, and bands that jump or move irregularly."></video>
+    </figure>
+  </div>
+</section>
+
+<!-- ============================================================ method -->
+<section class="block" id="method">
+  <div class="wrap">
+    <header class="prose">
+      <p class="kicker" style="color:var(--mod-aoa)"><span class="dot"></span>Method</p>
+      <h2>Reading the injected light's traces in the camera's own video</h2>
+      <p>Injected light reaches the sensor along paths that scene light never takes. It does not raise the colors evenly across the frame, and it creates, moves and erases small image structures that the scene does not explain. StrayScope measures both effects with classical signal processing, and then uses those measurements to rebuild the affected parts of each frame. Nothing is trained, and nothing about the downstream perception model is used.</p>
+    </header>
+
+    <ol class="pipeline" aria-label="StrayScope pipeline">
+      <li style="--c:var(--mod-inj)"><b>Optical injection</b><span>The sensor records scene light mixed with injected light.</span></li>
+      <li style="--c:var(--mod-aoa)"><b>Adversarial optics analysis</b><span>Spectral-spatial and stray-trail analyses locate the injection and measure how it moves.</span></li>
+      <li style="--c:var(--mod-sp)"><b>Signal processing</b><span>Space-time reconstruction rebuilds the affected regions from nearby frames of the same stream.</span></li>
+      <li style="--c:var(--mod-cor)"><b>Corrected data</b><span>Same resolution and frame rate as the camera output.</span></li>
+      <li style="--c:var(--mod-per)"><b>Perception models</b><span>Any detector, segmenter, face or pose model, or vision-language model runs unchanged.</span></li>
+    </ol>
+
+    <div class="step" style="--c:var(--mod-aoa)">
+      <div class="prose">
+        <p class="tag-mod">Adversarial optics analysis</p>
+        <h3>Spectral-spatial analysis</h3>
+        <p>The lens spreads the injected light unevenly, so it raises the color channels by different amounts in different places. StrayScope divides each frame into regions and compares each region with its own normal color, learned from a short attack-free calibration window. A region is affected when its strongest channel rises above a threshold set from that channel's response to injection.</p>
+        <p>A finer per-pixel score combines color increase and color dominance and traces the outline of the affected area. The outline is often curved: wide-angle cameras correct their lens distortion, and that bends the bands.</p>
+        <p class="small muted">Paper figures: <a href="#" data-fig="fig1-localization">regional localization</a>, <a href="#" data-fig="fig2-pixel-contour">pixel-level contour</a>.</p>
+      </div>
+      <div class="media">
+        <video class="loop-video" data-src="assets/video/mech-spectral.mp4" poster="assets/img/mech-spectral.jpg" muted loop playsinline preload="none" data-autoplay aria-label="Attacked video with the affected regions lighting up as the band moves, and the band's pixel-level outline."></video>
+        <p class="media-label">Real laser, recorded through the camera. Top: the attacked frame and the outline of the pixels the injected light reaches. Bottom: each region's rise above its normal color; bordered regions are above the threshold.</p>
+      </div>
+    </div>
+
+    <div class="step" style="--c:var(--mod-aoa)">
+      <div class="prose">
+        <p class="tag-mod">Adversarial optics analysis</p>
+        <h3>Stray-trail analysis</h3>
+        <p>Stray light also creates, shifts and erases fine image structure. StrayScope tracks corner points from one frame to the next and counts, in each region, the share of points that jump farther than a set distance or disappear. In a stable scene that share stays near zero; a passing band drives it up. The count uses gray levels only, so it does not depend on the laser's color.</p>
+        <p>The directions in which the disrupted points move, together with the drift of the affected regions, give the band's sweep direction and speed.</p>
+        <p class="small muted">Paper figures: <a href="#" data-fig="fig3-stray-trail">stray trails</a>, <a href="#" data-fig="fig5-sweep">sweep direction</a>.</p>
+      </div>
+      <div class="media">
+        <video class="loop-video" data-src="assets/video/mech-trails.mp4" poster="assets/img/mech-trails.jpg" muted loop playsinline preload="none" data-autoplay aria-label="Tracked points between frames; points displaced by the band leave trails, lost points are crossed, and disrupted regions are shaded."></video>
+        <p class="media-label">Top: corner points tracked between consecutive frames; trails mark points the band displaced, crosses points it erased. Bottom: the share of disrupted points per region, bordered above the threshold, and the measured sweep direction.</p>
+      </div>
+    </div>
+
+    <div class="step wide" style="--c:var(--mod-sp)">
+      <div class="prose">
+        <p class="tag-mod">Signal processing</p>
+        <h3>Space-time reconstruction</h3>
+        <p>A moving band covers each place only part of the time. StrayScope refines the affected regions into fine tiles along the band and, for each tile, searches nearby frames of the same stream for an observation of that place with little injection left. Candidates are scored by the injection they still carry and by how far away they are in time; a tile keeps its own content when no candidate passes. Tiles along the band share a source, so neighboring pieces stay consistent.</p>
+        <p>Every input frame gets a corrected frame, so the video keeps its frame rate. The corrected video is handed to the perception models in place of the camera output.</p>
+      </div>
+      <div class="media">
+        <video class="loop-video" data-src="assets/video/mech-trace.mp4" poster="assets/img/mech-trace.jpg" muted loop playsinline preload="none" data-autoplay aria-label="Space-time trace of one image column over time, before and after correction, next to the attacked and corrected frames."></video>
+        <p class="media-label">One image column followed over time (a space-time trace). Under attack the moving bands draw diagonal streaks; after correction the trace shows the scene again.</p>
+      </div>
+    </div>
+
+    <div class="stepper" style="--c:var(--mod-sp)">
+      <h3>One frame, step by step</h3>
+      <div class="stepper-tabs" role="tablist" aria-label="Correction steps">
+        <button role="tab" type="button" style="--c:var(--mod-inj)"><span class="n">1</span>Attacked frame</button>
+        <button role="tab" type="button" style="--c:var(--mod-aoa)"><span class="n">2</span>Affected regions</button>
+        <button role="tab" type="button" style="--c:var(--mod-aoa)"><span class="n">3</span>Fine targets</button>
+        <button role="tab" type="button" style="--c:var(--mod-sp)"><span class="n">4</span>Search over time</button>
+        <button role="tab" type="button" style="--c:var(--mod-sp)"><span class="n">5</span>Source time</button>
+        <button role="tab" type="button" style="--c:var(--mod-cor)"><span class="n">6</span>Corrected</button>
+      </div>
+      <div class="stepper-body">
+        <img src="assets/img/steps/1.webp" alt="" width="1280" height="720">
+        <div>
+          <h4></h4>
+          <p class="step-text"></p>
+          <div class="stepper-nav"><button class="btn prev" type="button">Previous</button><button class="btn next" type="button">Next</button></div>
+        </div>
+      </div>
+      <script type="application/json">[
+        {"img":"assets/img/steps/1.webp","title":"Attacked frame","alt":"A parking lot crossed by two blue laser bands.","text":"One frame of a parking-lot video whose band changes direction and speed during the clip (shown at reduced intensity)."},
+        {"img":"assets/img/steps/2.webp","title":"Affected regions","alt":"The frame with affected regions shaded and displaced feature points marked.","text":"Spectral-spatial analysis marks the regions whose color rose above threshold; the dots are feature points the band displaced since the previous frame."},
+        {"img":"assets/img/steps/3.webp","title":"Fine targets","alt":"Fine tiles along the bands, shaded by injection strength.","text":"The regions are refined into fine tiles along the band, shaded by how much injected light each tile carries."},
+        {"img":"assets/img/steps/4.webp","title":"Search over time","alt":"A space-time image of one row over the search window with dots marking chosen source frames.","text":"One image row across the search window, with the past at the top and the current frame at the bottom. The bands show as moving traces; each dot marks the frame a tile takes its content from, in the gaps where the band had passed."},
+        {"img":"assets/img/steps/5.webp","title":"Source time","alt":"The replaced tiles colored by how far back their source frame is.","text":"Each replaced tile colored by how far back its source lies, from recent to older."},
+        {"img":"assets/img/steps/6.webp","title":"Corrected","alt":"The corrected parking-lot frame without bands.","text":"The corrected frame: replaced tiles and untouched regions together, at the original resolution."}
+      ]</script>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================ detection -->
+<section class="block" id="detection">
+  <div class="wrap">
+    <header class="prose">
+      <p class="kicker" style="color:var(--mod-aoa)"><span class="dot"></span>Detection</p>
+      <h2>Both analyses raise an alert across cameras, colors and intensities</h2>
+      <p>Instead of failing silently, a camera can raise an alert. Each analysis raises one when enough regions are affected at once; the settings stay fixed for every camera, scene and attack. The evaluation covers 900 attacks made by overlaying patterns recorded from real cameras onto 50 scene videos, 20 attacks captured physically on doorbells and a USB camera, and 50 attack-free videos with traffic, foliage, people and lighting changes.</p>
+    </header>
+    <div class="figures-row">
+      <div style="--c:var(--mod-aoa)"><b>98.4% and 99.2%</b><span>of 900 simulated attacks detected by spectral-spatial and stray-trail analysis</span></div>
+      <div style="--c:var(--mod-aoa)"><b>20 of 20</b><span>physically captured attacks detected by both analyses</span></div>
+      <div style="--c:var(--mod-aoa)"><b>94.1%</b><span>mean detection over 13 cameras (doorbells, CCTV, phones, webcams) without recalibration</span></div>
+      <div style="--c:var(--mod-aoa)"><b>8.2 ms</b><span>per frame for spectral-spatial analysis on a Raspberry Pi Compute Module 5</span></div>
+    </div>
+
+    <div class="cols-text-media">
+      <div>
+        <h3>By attack pattern and intensity</h3>
+        <div class="table-wrap">
+          <table class="data">
+            <thead><tr><th>Attacks</th><th>Videos</th><th>Spectral-spatial</th><th>Stray-trail</th></tr></thead>
+            <tbody>
+              <tr><td>Horizontal rolling bands</td><td>300</td><td>97.3%</td><td>100%</td></tr>
+              <tr><td>Vertical rolling bands</td><td>150</td><td>98.7%</td><td>100%</td></tr>
+              <tr><td>Static, right side</td><td>300</td><td>98.7%</td><td>98.0%</td></tr>
+              <tr><td>Static, left side</td><td>150</td><td>100%</td><td>99.3%</td></tr>
+              <tr><td>High intensity</td><td>300</td><td>99.3%</td><td>99.7%</td></tr>
+              <tr><td>Moderate intensity</td><td>300</td><td>99.3%</td><td>99.7%</td></tr>
+              <tr><td>Low intensity</td><td>300</td><td>96.7%</td><td>98.3%</td></tr>
+              <tr><td>Physical attacks</td><td>20</td><td>100%</td><td>100%</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <h3>Across cameras</h3>
+        <div class="table-wrap">
+          <table class="data">
+            <thead><tr><th>Cameras</th><th>Videos</th><th>Spectral-spatial</th><th>Stray-trail</th></tr></thead>
+            <tbody>
+              <tr><td>Video doorbells (6)</td><td>216</td><td>84.9%</td><td>99.5%</td></tr>
+              <tr><td>Outdoor CCTV (3)</td><td>108</td><td>91.9%</td><td>99.1%</td></tr>
+              <tr><td>Smartphones and webcams (4)</td><td>144</td><td>91.2%</td><td>100%</td></tr>
+              <tr><td>All 13 cameras</td><td>468</td><td>88.5%</td><td>99.6%</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <p class="small muted">The same parameters detect every attack in the same videos converted to 480p, 720p, 960p and 1080p.</p>
+      </div>
+      <div>
+        <figure class="fig" style="margin-top:0">
+          <img class="zoomable" src="assets/img/fig/fig4-detection.webp" alt="Spectral-spatial and stray-trail analysis on attacks at high, moderate and low intensity, in three laser colors and two band directions." loading="lazy" width="2400" height="1076">
+          <figcaption><b>Paper figure.</b> Both analyses detect the attack at high, moderate and low intensity, across laser colors and band directions. Top: spectral-spatial analysis; bottom: stray-trail analysis.</figcaption>
+        </figure>
+        <figure class="fig dark">
+          <video class="loop-video" data-src="assets/video/detect-demo.mp4" poster="assets/img/detect-demo.jpg" muted loop playsinline preload="none" data-autoplay aria-label="A doorbell video in which a laser band appears after two seconds; both detectors switch to an attack alert within two frames."></video>
+          <figcaption><b>Both detectors, as released, on one of the paper's attack videos.</b> The laser comes on at 2.0 s; spectral-spatial analysis raises its alert one frame later and stray-trail analysis two frames later. Blue squares are regions flagged by color, amber squares regions flagged by disrupted structure. Click the video to pause.</figcaption>
+        </figure>
+      </div>
+    </div>
+
+    <h3 style="margin-top:2.5rem">Before the attack works, the alert is already up</h3>
+    <div class="cols-2">
+      <div class="prose">
+        <p>As the overlay intensity rises, object detection degrades; the four-detector score drops to half its clean value at about 62% intensity. At 40% intensity the two analyses already detect 86.2% and 78.4% of the attacks, and both are near 100% by 62%.</p>
+        <p>An attacker who ramps the laser up slowly, hoping to stay below the threshold, is caught at a mean of 21.3% intensity across 24 ramped attacks with two- and three-color lasers, every one of them before the 62% point.</p>
+      </div>
+      <figure class="fig" style="margin-top:0">
+        <img class="zoomable" src="assets/img/fig/app-intensity-calibration.webp" alt="Line chart: object-detection score falls with overlay intensity while both alert rates rise to near 100% before the 62% point." loading="lazy" width="2000" height="1391">
+        <figcaption><b>Intensity calibration.</b> Mean object-detection score of four detectors (left axis) and the alert rate of each analysis (right axis) as the overlay intensity grows.</figcaption>
+      </figure>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================ results -->
+<section class="block" id="results">
+  <div class="wrap">
+    <header class="prose">
+      <p class="kicker" style="color:var(--mod-per)"><span class="dot"></span>Perception models</p>
+      <h2>Perception models work again on the corrected video</h2>
+      <p>Each model is scored against its own output on the clean video, so 100 means it sees exactly what it would see without the attack. A detection counts only when its class matches and its box overlaps the clean box with an intersection-over-union of at least 0.5; missed objects and extra ones both lower the score. Within a task, every model receives the same corrected videos, and nothing in the correction is tuned for a model.</p>
+    </header>
+
+    <div class="tabs" id="result-tabs">
+      <div class="tablist" role="tablist" aria-label="Perception tasks">
+        <button role="tab" type="button" aria-selected="true" aria-controls="tab-det" id="t-det">Object detection</button>
+        <button role="tab" type="button" aria-selected="false" aria-controls="tab-seg" id="t-seg" tabindex="-1">Instance segmentation</button>
+        <button role="tab" type="button" aria-selected="false" aria-controls="tab-face" id="t-face" tabindex="-1">Faces</button>
+        <button role="tab" type="button" aria-selected="false" aria-controls="tab-pose" id="t-pose" tabindex="-1">Human pose</button>
+        <button role="tab" type="button" aria-selected="false" aria-controls="tab-vlm" id="t-vlm" tabindex="-1">Vision-language models</button>
+      </div>
+
+      <div class="tabpanel" role="tabpanel" id="tab-det" aria-labelledby="t-det">
+        <div class="cols-2">
+          <div class="prose">
+            <h3>Five detector architectures, 36 attacked videos</h3>
+            <p>Two-stage, single-stage and transformer detectors all recover. Across the five, the mean score rises from 38.2 to 56.5, and 172 of the 180 detector-video pairs improve. The gain holds for horizontal bands, vertical bands, and bands that change speed and direction within a clip.</p>
+          </div>
+          <div>
+            <div class="dumbbell" data-chart="det"></div>
+            <div class="chart-key"><span><i style="background:var(--attacked)"></i>Attacked</span><span><i style="background:var(--corrected)"></i>Corrected</span><span>Mean score per video, 100 = same output as on the clean video</span></div>
+          </div>
+        </div>
+        <div class="stage on-dark" style="margin-top:2rem;border-radius:var(--radius-m);padding:1.25rem 1.25rem 1.5rem">
+          <div data-player="houses-h,houses-v,parking,phys-delivery"></div>
+        </div>
+        <figure class="fig fig-wide">
+          <img class="zoomable" src="assets/img/fig/fig7-detectors.webp" alt="Three rows of clean, attacked and corrected frames, each through a different detector, with missed, ghost and wrong-label boxes marked." loading="lazy" width="2400" height="1596">
+          <figcaption><b>Paper figure.</b> Object detection on the clean, attacked and corrected frame, each row through another detector: a strong band (top), a moderate band (middle), and a real laser recorded through the camera (bottom). Dashed boxes mark objects the detector no longer reports anywhere, purple boxes objects reported where no detector sees anything on the clean frame, and amber boxes objects reported with another class.</figcaption>
+        </figure>
+      </div>
+
+      <div class="tabpanel" role="tabpanel" id="tab-seg" aria-labelledby="t-seg" hidden>
+        <div class="cols-2">
+          <div class="prose">
+            <h3>Mask R-CNN, 36 attacked videos</h3>
+            <p>Under attack, Mask R-CNN loses people and cars, distorts their outlines and adds spurious masks over the background. After correction, missed instances fall from 156,902 to 87,927 and spurious ones from 72,388 to 64,165. The mean score rises from 38.4 to 54.0 and improves on 34 of the 36 videos.</p>
+          </div>
+          <div>
+            <div class="dumbbell" data-chart="seg"></div>
+            <div class="chart-key"><span><i style="background:var(--attacked)"></i>Attacked</span><span><i style="background:var(--corrected)"></i>Corrected</span></div>
+          </div>
+        </div>
+        <div class="stage on-dark" style="margin-top:2rem;border-radius:var(--radius-m);padding:1.25rem 1.25rem 1.5rem">
+          <div data-player="houses-seg,phys-parking-seg"></div>
+        </div>
+      </div>
+
+      <div class="tabpanel" role="tabpanel" id="tab-face" aria-labelledby="t-face" hidden>
+        <div class="cols-2">
+          <div class="prose">
+            <h3>Face detection and face recognition</h3>
+            <p>Face detection was the feature that failed most consistently on the commercial doorbells. On ten attacked clips, YuNet finds 58.8% of the faces it finds in the clean video; after correction it finds 88.7%, and every clip improves.</p>
+            <p>Recognition needs more than a box: the facial detail that tells people apart. With identities enrolled from the clean video, SFace's identity score rises from 48.4 to 91.9, on all five clips.</p>
+          </div>
+          <div>
+            <div class="dumbbell" data-chart="face"></div>
+            <div class="chart-key"><span><i style="background:var(--attacked)"></i>Attacked</span><span><i style="background:var(--corrected)"></i>Corrected</span></div>
+          </div>
+        </div>
+        <div class="stage on-dark" style="margin-top:2rem;border-radius:var(--radius-m);padding:1.25rem 1.25rem 1.5rem">
+          <div data-player="face-sim,phys-face"></div>
+        </div>
+        <figure class="fig fig-wide">
+          <img class="zoomable" src="assets/img/fig/fig9-face-recognition.webp" alt="Face recognition on the clean, attacked and corrected video: six faces recognized, none under attack, six after correction." loading="lazy" width="2400" height="721">
+          <figcaption><b>Paper figure.</b> Face recognition on one instant of the clean, attacked and corrected video. Six faces are recognized in the clean video, none under the attack, and all six after correction.</figcaption>
+        </figure>
+      </div>
+
+      <div class="tabpanel" role="tabpanel" id="tab-pose" aria-labelledby="t-pose" hidden>
+        <div class="cols-2">
+          <div class="prose">
+            <h3>Pose estimation on people in motion</h3>
+            <p>Pose is the hard case for any reconstruction over time, because limbs move between observations. On 15 clips of people dancing, exercising and running, YOLO11n-Pose's score rises from 36.6 to 72.3 and improves on every clip. Among matched people the joints also land closer to their clean positions: the keypoint similarity rises from 0.743 to 0.804.</p>
+          </div>
+          <div>
+            <div class="dumbbell" data-chart="pose"></div>
+            <div class="chart-key"><span><i style="background:var(--attacked)"></i>Attacked</span><span><i style="background:var(--corrected)"></i>Corrected</span></div>
+          </div>
+        </div>
+        <div class="stage on-dark" style="margin-top:2rem;border-radius:var(--radius-m);padding:1.25rem 1.25rem 1.5rem">
+          <div data-player="pose-sim,pose-sim2"></div>
+        </div>
+      </div>
+
+      <div class="tabpanel" role="tabpanel" id="tab-vlm" aria-labelledby="t-vlm" hidden>
+        <div class="cols-2">
+          <div class="prose">
+            <h3>Vision-language models</h3>
+            <p>Qwen3-VL-30B-A3B and InternVL3-38B watched the same 36 attacked and corrected videos. Five fixed questions ask whether a person, package or vehicle is present, how many people there are, and what the main subject is; answers are compared word for word with each model's answers on the clean video. Correction raises the share of matching answers from 85.0% to 92.2% for Qwen3-VL and from 81.7% to 88.3% for InternVL3.</p>
+            <p>For open scene descriptions, a judge model compares each description with the same model's clean description for accuracy, completeness and relevance. Scores rise from 72.9 to 78.8 and from 74.0 to 81.2.</p>
+          </div>
+          <div>
+            <div class="dumbbell" data-chart="vlm"></div>
+            <div class="chart-key"><span><i style="background:var(--attacked)"></i>Attacked</span><span><i style="background:var(--corrected)"></i>Corrected</span></div>
+          </div>
+        </div>
+        <div id="vlm-example"></div>
+        <div class="stage" style="margin-top:1.5rem;border-radius:var(--radius-m);padding:1.25rem 1.25rem 1.5rem"><div data-player="phys-parking-blue" data-nochips></div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================ physical -->
+<section class="block" id="physical">
+  <div class="wrap">
+    <header class="prose">
+      <p class="kicker" style="color:var(--attacked)"><span class="dot"></span>Physical attacks</p>
+      <h2>Real lasers, recorded through a real camera</h2>
+      <p>To test the full optical path, a webcam films a monitor playing the scene videos while a modulated laser shines into its lens. The bands now come from the camera's own lens, sensor readout and image processing, not from an overlay. We recorded 111 attacked videos in blue, green and red, each with a matched laser-off recording as the reference.</p>
+    </header>
+    <div class="cols-2">
+      <div>
+        <div class="dumbbell" data-chart="phys"></div>
+        <div class="chart-key"><span><i style="background:var(--attacked)"></i>Attacked</span><span><i style="background:var(--corrected)"></i>Corrected</span><span>Mean score per recording</span></div>
+      </div>
+      <div class="prose small">
+        <p>Every object detector improves under each of the three laser colors, and Mask R-CNN improves overall. Face detection improves on all 30 recordings and face recognition on all 15. The two vision-language models also give more answers that match their laser-off answers (92.8% to 94.4% and 88.3% to 90.0%) and better descriptions (75.0 to 77.9 and 77.1 to 80.7).</p>
+      </div>
+    </div>
+    <div class="stage" style="margin-top:2rem;border-radius:var(--radius-m);padding:1.25rem 1.25rem 1.5rem">
+      <div data-player="phys-parking,phys-porch,phys-delivery,phys-street,phys-face,phys-parking-seg"></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================ stress tests -->
+<section class="block" id="stress">
+  <div class="wrap">
+    <header class="prose">
+      <p class="kicker" style="color:var(--mod-aoa)"><span class="dot"></span>Stress tests</p>
+      <h2>Attacks designed to slip past the analyses</h2>
+    </header>
+    <div class="cols-2">
+      <div class="prose">
+        <h3>Mixing laser colors</h3>
+        <p>Injecting two or three colors at once could hide which channel dominates. Across all four color combinations on six scenes, both analyses detect every attack: imperfect sources and uneven paths inside the lens still leave channel imbalances, and stray-trail analysis ignores color altogether.</p>
+        <h3>Ramping the intensity slowly</h3>
+        <p>Raising the laser from zero detects at a mean of 21.3% intensity, before the attack does real damage to object detection.</p>
+        <h3>Day to night</h3>
+        <p>With the baseline taken in daylight and the attack after nightfall, the analyses detect 88.8% of attacks and raise no false alarms from the lighting change.</p>
+      </div>
+      <div class="prose">
+        <h3>Dim, narrow, jumping and erratic bands</h3>
+        <p>We recorded five more patterns on the laser rig: a dim band, a narrow band, a band that jumps between two places, a band that moves fast between them, and a band with irregular speed and direction. Overlaid on 20 pose and face videos, every one is detected by stray-trail analysis within 0.2 s of its onset.</p>
+        <div class="table-wrap">
+          <table class="data">
+            <thead><tr><th>Stress test</th><th>Attacks</th><th>Result</th></tr></thead>
+            <tbody>
+              <tr><td>Two and three laser colors at once</td><td>24</td><td>100% detected by each analysis</td></tr>
+              <tr><td>Intensity ramped up from zero</td><td>24</td><td>all detected, at 21.3% intensity on average</td></tr>
+              <tr><td>Daylight baseline, attack at night</td><td>18</td><td>88.8% detected, no false alarms</td></tr>
+              <tr><td>Dim, narrow, jumping, fast, erratic bands</td><td>20</td><td>all detected within 0.2 s (stray-trail)</td></tr>
+              <tr><td>Same attacks at 480p to 1080p</td><td>40</td><td>all detected, same settings</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================ disclosure -->
+<section class="block" id="disclosure">
+  <div class="wrap">
+    <header class="prose">
+      <p class="kicker" style="color:var(--ink-3)"><span class="dot"></span>Responsible disclosure</p>
+      <h2>The manufacturers were told</h2>
+      <p>We reported the silent failures to each manufacturer in October 2025, with the products affected and the features that could be suppressed. All experiments used our own devices in controlled settings, with curtains, signage and timing chosen to keep bystanders away.</p>
+    </header>
+    <ul class="disclose">
+      <li><b>Google</b>Accepted, rated moderate severity, reward issued; later closed as infeasible to address.</li>
+      <li><b>Arlo</b>Validated as a vulnerability, reward issued; marked unresolved.</li>
+      <li><b>Ring (Amazon)</b>Triaged, reward issued; described the risk as accepted industry-wide.</li>
+      <li><b>Reolink and TP-Link</b>Acknowledged the reports.</li>
+      <li><b>Wyze</b>No response.</li>
+    </ul>
+  </div>
+</section>
+
+<!-- ============================================================ artifacts -->
+<section class="block" id="artifacts">
+  <div class="wrap">
+    <header class="prose">
+      <p class="kicker" style="color:var(--ink-3)"><span class="dot"></span>Artifacts</p>
+      <h2>Code, data and every video on this page</h2>
+    </header>
+    <ul class="artifacts">
+      <li><b>Spectral-spatial analysis</b><span>Detector source code (anonymized repository).</span><a class="btn" href="https://anonymous.4open.science/r/Spectral-Spatial-Analysis-System" rel="noreferrer">Open repository</a></li>
+      <li><b>Stray-trail analysis</b><span>Detector source code (anonymized repository, named Environmental-Mapping-Analysis-System).</span><a class="btn" href="https://anonymous.4open.science/r/Environmental-Mapping-Analysis-System" rel="noreferrer">Open repository</a></li>
+      <li><b>Dataset and results</b><span>Attack videos, corrected videos and evaluation outputs (anonymized dataset).</span><a class="btn" href="https://huggingface.co/datasets/anonymous-submission-404/seeing-isnt-securing-dataset-and-results/tree/main" rel="noreferrer">Open dataset</a></li>
+      <li><b>Demo videos</b><span>Every demo as a side-by-side video with model outputs, plus the clean, attacked and corrected streams on their own.</span><a class="btn" href="gallery.html">Open gallery</a></li>
+    </ul>
+
+    <h3 style="margin-top:2.5rem">Figures from the paper</h3>
+    <div class="cards" data-figlist></div>
+  </div>
+</section>
+
+<!-- ============================================================ FAQ -->
+<section class="block" id="faq">
+  <div class="wrap">
+    <header class="prose">
+      <h2>Questions reviewers ask</h2>
+    </header>
+    <div class="prose" style="max-width:52rem">
+      <details>
+        <summary>Does StrayScope need a clean copy of the video?</summary>
+        <div><p>No. It learns each region's normal color from a short attack-free calibration window and needs nothing else from a clean video. In the simulated videos that window is the opening frames; the physical recordings start with the laser already on, so their calibration frames come from the opening of the matching laser-off recording. The clean video shown in the demos is there only so you can compare.</p></div>
+      </details>
+      <details>
+        <summary>Is anything trained?</summary>
+        <div><p>No. Both analyses and the correction are signal processing with fixed settings. There are no labeled attack examples and no network weights, and the detection settings are the same for every camera and scene in the evaluation.</p></div>
+      </details>
+      <details>
+        <summary>Does the correction use the perception model?</summary>
+        <div><p>No. The correction runs before any perception model and never sees a model's output. The same corrected videos serve all five object detectors, Mask R-CNN and both vision-language models; the face and pose videos are corrected the same way.</p></div>
+      </details>
+      <details>
+        <summary>Can it run on a live stream?</summary>
+        <div><p>Yes. The correction can draw only on the current and earlier frames, and every demo on this page was produced that way. Each input frame gets a corrected output, so the frame rate is unchanged. On a Raspberry Pi Compute Module 5, spectral-spatial analysis takes 8.2 ms per 960&times;1280 frame and stray-trail analysis 86.2 ms.</p></div>
+      </details>
+      <details>
+        <summary>What if the attacker changes the color, intensity or pattern?</summary>
+        <div><p>Mixed laser colors, slowly ramped intensity, a day-to-night baseline change, and dim, narrow, jumping and erratic bands are all in the <a href="#stress">stress tests</a>. The detection settings stay fixed throughout.</p></div>
+      </details>
+      <details>
+        <summary>How are the scores computed?</summary>
+        <div><p>Each model's output on the clean video is the reference. A prediction matches when its class agrees and its box overlaps the reference box by an intersection-over-union of at least 0.5; each reference matches once. The score is 100 &times; matches / (matches + extra predictions + missed references). Faces must also keep their identity, and poses are matched by object keypoint similarity.</p></div>
+      </details>
+      <details>
+        <summary>Are the attacks in the demos real?</summary>
+        <div><p>Two kinds appear. Demos marked "Real laser" are recordings of a modulated laser shining into a camera while it films the scene on a monitor. The others overlay laser patterns recorded from real cameras onto the test videos, as in the paper's main evaluation; this lets the same scene be attacked with many cameras, colors and band motions.</p></div>
+      </details>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<footer class="site-foot">
+  <div class="wrap">
+    <p>StrayScope. Anonymous submission, under review. Scene videos come from the paper's test sets.</p>
+    <p>This page loads no third-party scripts, fonts or trackers.</p>
+  </div>
+</footer>
+</body>
+</html>
