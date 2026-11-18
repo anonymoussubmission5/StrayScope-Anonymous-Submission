@@ -438,14 +438,6 @@ details > div { padding-top: 0.75rem; max-width: var(--col); }
 .disclose li { border-left: 3px solid var(--rule); padding-left: 0.85rem; font-size: var(--t-s); color: var(--ink-2); }
 .disclose li b { display: block; color: var(--ink); font-size: var(--t-ui); }
 
-/* artifacts list */
-.artifacts { list-style: none; padding: 0; margin: 1.5rem 0 0; display: grid; gap: 0.75rem; font-family: var(--sans); }
-.artifacts li { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 0.25rem 1.5rem; align-items: baseline; padding: 0.85rem 1rem; background: var(--surface); border: 1px solid var(--rule); border-radius: var(--radius-m); }
-.artifacts b { font-size: var(--t-ui); }
-.artifacts span { color: var(--ink-2); font-size: var(--t-s); grid-column: 1; }
-.artifacts a { grid-row: 1 / span 2; grid-column: 2; align-self: center; }
-@media (max-width: 640px) { .artifacts li { grid-template-columns: minmax(0, 1fr); } .artifacts a { grid-row: auto; grid-column: 1; } }
-
 /* footer */
 .site-foot { margin-top: clamp(4rem, 9vw, 7rem); border-top: 1px solid var(--rule); padding: 2rem 0 3rem; font-family: var(--sans); font-size: var(--t-s); color: var(--ink-2); }
 .site-foot .wrap { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 1rem 2rem; }
@@ -458,13 +450,11 @@ details > div { padding-top: 0.75rem; max-width: var(--col); }
 .media-label { font-family: var(--sans); font-size: var(--t-xs); color: var(--ink-3); margin-top: 0.4rem; }
 @media print { .site-head, .stage, video, .chips { display: none !important; } body { background: #fff; } }
 
-/* hero author line, overview principles, artifacts placeholder (16 Nov revision) */
+/* hero author line, overview principles (16 Nov revision) */
 .hero .authors { font-family: var(--sans); font-size: var(--t-s); color: var(--ink-3); margin: 0 0 1rem; }
 .principles { display: grid; grid-template-columns: repeat(auto-fit, minmax(15rem, 1fr)); gap: 1.25rem 2rem; margin: 2rem 0 0; font-family: var(--sans); }
 .principles div { border-left: 3px solid var(--c, var(--ink)); padding: 0.1rem 0 0.1rem 0.95rem; }
 .principles b { display: block; font-family: var(--serif); font-size: var(--t-l); font-weight: 600; color: var(--ink); line-height: 1.25; }
 .principles span { display: block; font-size: var(--t-s); color: var(--ink-2); line-height: 1.5; margin-top: 0.35rem; }
-.soon { font-family: var(--serif); font-size: var(--t-l); color: var(--ink); margin-top: 0.5rem; }
-.soon span { color: var(--ink-3); }
 table.data.wrap td, table.data.wrap th { white-space: normal; vertical-align: top; }
 table.data.wrap td:last-child, table.data.wrap th:last-child { text-align: left; }
